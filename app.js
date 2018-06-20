@@ -22,7 +22,6 @@ $(function() {
       return;
     }
 
-    // update board with currentPlayer
     board[row][col] = currentPlayer;
 
     dropDisc(row, col);
@@ -42,7 +41,7 @@ $(function() {
     currentPlayer = currentPlayer === 'blue' ? 'red' : 'blue';
   }
 
-  // given the column, return top empty row. if filled, null
+  // given the column, return top empty row. if filled, return null
   function findEmptySpot(col) {
     for (let row = ROWS - 1; row >= 0; row--) {
       if (!board[row][col]) {
@@ -67,22 +66,18 @@ $(function() {
     );
   }
 
-  // endGame: announce game end
-
   function endGame(msg) {
     $('.column-top').off('click');
     window.setTimeout(() => $('#board').fadeOut(), 1000);
     window.setTimeout(() => $('#boardgame').html(msg), 1000);
   }
 
-  // check each space on board if a win starts here
-
   function checkWin() {
     function verifyWin(spaces) {
       // Check four spaces to see if they're the same color of currentPlayer
-      //  - spaces: list of four (row, col) spaces
-      //  - returns true if all are legal coordinates & all match currentPlayer
 
+      // spaces: array of four (row,col spaces)
+      // returns true if all are legal coordinates & all match currentPlayer
       return spaces.every(
         ([row, col]) =>
           row >= 0 &&
@@ -95,8 +90,7 @@ $(function() {
 
     for (let row = 0; row < ROWS; row++) {
       for (let col = 0; col < COLUMNS; col++) {
-        // get "check list" of 4 spaces (starting here) for each of the different
-        // warows to win
+        // get list of of 4 spaces (starting here) for each of the different ways to win
         const horizontal = [
           [row, col],
           [row, col + 1],
